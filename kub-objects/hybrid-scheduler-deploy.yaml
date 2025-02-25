@@ -26,5 +26,5 @@ spec:
           effect: NoSchedule
       serviceAccountName: hybrid-scheduler-account
       containers:
-      - image: hybrid-scheduler:v1
+      - image: miadan/hybrid-scheduler:v0.0.0
         name: hybrid-scheduler
