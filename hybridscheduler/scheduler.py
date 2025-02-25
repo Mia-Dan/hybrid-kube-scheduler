@@ -3,10 +3,22 @@
 from kubernetes import client, config
 import datetime
 import time
+import logging
 
 import cluster
 import topsis
 import nsgaiii
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),  # Output to console
+        logging.FileHandler('hybrid-scheduler.log')  # Output to file
+    ]
+)
+logger = logging.getLogger('hybrid-scheduler')
 
 try:
     config.load_incluster_config()
@@ -36,7 +48,7 @@ def schedule_topsis(pod):
     attrs = {n.name:{'memory':n.get_rem_mem(), 'cpu_core':n.get_rem_cpu(),
                     'disk_total':n.disk_total, 'disk_free':n.disk_free,
                     'bitrate':n.bitrate} for n in nodes}
-    
+    logger.info(f"Node attributes for scheduling: {attrs}")
     best = topsis.best_host(attrs)
     schedule(pod, best, 'Topsis')
         
