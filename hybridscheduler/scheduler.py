@@ -67,7 +67,8 @@ def main():
                 tmp_pods.append(pod.metadata.name)
         
         if tmp_pods and (pods_to_schedule == tmp_pods):
-            if len(pods_to_schedule) <= 3:
+            # if len(pods_to_schedule) <= 3:
+            if True:
                 remain_pods = []
                 for p in pods_to_schedule:
                     try:
@@ -75,13 +76,13 @@ def main():
                     except:
                         remain_pods.append(p)
                 pods_to_schedule = remain_pods
-            else:
-                remain_pods = []
-                try:
-                    remain_pods = schedule_nsgaiii(pods_to_schedule)
-                except:
-                    remain_pods = pods_to_schedule
-                pods_to_schedule = remain_pods
+            # else:
+            #     remain_pods = []
+            #     try:
+            #         remain_pods = schedule_nsgaiii(pods_to_schedule)
+            #     except:
+            #         remain_pods = pods_to_schedule
+            #     pods_to_schedule = remain_pods
         else:
             pods_to_schedule = tmp_pods
             time.sleep(0.5)
