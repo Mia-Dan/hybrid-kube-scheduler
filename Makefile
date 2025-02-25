@@ -1,6 +1,6 @@
 .PHONY: buildkind buildimage
 
-buildkind: buildimage
+buildkind: 
 	kubectl create ns monitoring
 	kubectl apply -f kub-objects/metric-server.yaml
 	kubectl apply -f node-exporter
